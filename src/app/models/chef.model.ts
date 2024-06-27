@@ -1,4 +1,5 @@
 import { Citizen } from "./citizen.model";
+import { Gender } from "./citizen.model";
 
 export class Chef extends Citizen {
     public cuisineType: string;
@@ -6,7 +7,7 @@ export class Chef extends Citizen {
     constructor(
         name: string,
         age: number,
-        gender: string,
+        gender: Gender,
         address: string,
         phone: number,
         cuisineType: string

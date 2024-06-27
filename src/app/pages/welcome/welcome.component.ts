@@ -7,7 +7,7 @@ import {HeroComponent} from "../../components/hero/hero.component";
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.css'],
   imports: [
-    HeroComponent
+    
   ]
 })
 export class WelcomeComponent implements OnInit {
