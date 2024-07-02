@@ -30,6 +30,6 @@ export class MayorService {
   }
 
   getAlias(): string {
-    return this.mayor.getAlias();
+    return this.mayor.alias;
   }
 }

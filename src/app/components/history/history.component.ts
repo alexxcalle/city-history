@@ -111,7 +111,7 @@ export class HistoryComponent implements OnInit {
         title: 'El Despertar de Guayaquil Loco',
         description: 'Amanece en Guayaquil y el alcalde Abdala Bucaram se prepara para un nuevo día de gobierno.',
         character: this.mayor,
-        action: () => this.mayor.welcomeMessage()
+        action: () => this.mayor.welcomeMessage() && this.mayor.getAlias()
       },
       {
         title: 'La Revolución Culinaria',

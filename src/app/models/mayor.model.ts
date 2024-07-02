@@ -2,7 +2,6 @@ import { Citizen } from "./citizen.model";
 import { Gender } from "./citizen.model";
 
 export class Mayor extends Citizen {
-    alias!: string;
     
     constructor(
         name: string,
@@ -10,8 +9,8 @@ export class Mayor extends Citizen {
         gender: Gender,
         address: string,
         phone: number,
-        termYears: number,
-        alias: string
+        public termYears: number,
+        public alias: string
     ) {
         super(name, age, gender, address, phone);
     }
