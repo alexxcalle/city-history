@@ -2,7 +2,6 @@ import { Citizen } from "./citizen.model";
 import { Gender } from "./citizen.model";
 
 export class Artist extends Citizen {
-    public artForm: string;
 
     constructor(
         name: string,
@@ -10,7 +9,7 @@ export class Artist extends Citizen {
         gender: Gender,
         address: string,
         phone: number,
-        artForm: string
+        public artForm: string
     ) {
         super(name, age, gender, address, phone);
         this.artForm = artForm;
