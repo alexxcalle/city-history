@@ -4,7 +4,7 @@ import { Mayor } from '../../models/mayor.model';
 import { CommonModule } from '@angular/common';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzListModule} from 'ng-zorro-antd/list';
+import { NzListModule } from 'ng-zorro-antd/list';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { Artist } from '../../models/artist.model';
 import { Chef } from '../../models/chef.model';
@@ -26,7 +26,9 @@ import { Police4Service } from '../../services/police4.service';
 import { Police5Service } from '../../services/police5.service';
 import { Teacher1Service } from '../../services/teacher1.service';
 import { Teacher2Service } from '../../services/teacher2.service';
-
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
+import { NzAlertModule} from 'ng-zorro-antd/alert';
 
 @Component({
   selector: 'app-history',
@@ -37,12 +39,15 @@ import { Teacher2Service } from '../../services/teacher2.service';
     NzButtonModule,
     NzListModule,
     NzGridModule,
+    NzDividerModule,
+    NzDescriptionsModule,
+    NzAlertModule
   ],
   templateUrl: './history.component.html',
-  styleUrl: './history.component.css'
+  styleUrls: ['./history.component.css'] // Corregido de 'styleUrl' a 'styleUrls' y en plural
 })
-export class HistoryComponent implements OnInit{
-  mayor!: Mayor;
+export class HistoryComponent implements OnInit {
+  mayor!: Mayor | { [key: string]: any };
   artist!: Artist;
   chef1!: Chef;
   chef2!: Chef;
@@ -57,9 +62,28 @@ export class HistoryComponent implements OnInit{
   police5!: Police;
   teacher1!: Teacher;
   teacher2!: Teacher;
-  
+
+  currentScene: number = 0;
+  scenes: { title: string, description: string, action: string | null }[] = [
+    {
+      title: 'El Despertar de Guayaquil',
+      description: 'Amanece en Guayaquil y el alcalde Abdala Bucaram se prepara para un nuevo día de gobierno.',
+      action: 'welcomeMessage'
+    },
+    {
+      title: 'La Revolución Culinaria',
+      description: 'El alcalde anuncia su nueva política: renombrar las calles con nombres de platos típicos.',
+      action: 'getAlias'
+    },
+    {
+      title: 'El Gran Festín',
+      description: 'Bucaram organiza un festival gastronómico en el Malecón 2000 Sabores.',
+      action: null
+    }
+  ];
+
   constructor(
-    private mayorService: MayorService, 
+    private mayorService: MayorService,
     private artistService: ArtistService,
     private chef1Service: Chef1Service,
     private chef2Service: Chef2Service,
@@ -76,20 +100,48 @@ export class HistoryComponent implements OnInit{
     private teacher2Service: Teacher2Service) { }
 
   ngOnInit(): void {
-   this.mayor = this.mayorService.getMayor();
-   this.artist = this.artistService.getArtist();
-   this.chef1 = this.chef1Service.getChef();
-   this.chef2 = this.chef2Service.getChef();
-   this.chef3 = this.chef3Service.getChef();
-   this.doctor = this.doctorService.getDoctor();
-   this.doctor2 = this.doctor2Service.getDoctor();
-   this.engineer = this.engineerService.getEngineer();
-   this.police1 = this.police1Service.getPolice1();
-   this.police2 = this.police2Service.getPolice2();
-   this.police3 = this.police3Service.getPolice3();
-   this.police4 = this.police4Service.getPolice4();
-   this.police5 = this.police5Service.getPolice5();
-   this.teacher1 = this.teacher1Service.getTeacher1();
-   this.teacher2 = this.teacher2Service.getTeacher2();
+    this.mayor = this.mayorService.getMayor();
+    this.artist = this.artistService.getArtist();
+    this.chef1 = this.chef1Service.getChef();
+    this.chef2 = this.chef2Service.getChef();
+    this.chef3 = this.chef3Service.getChef();
+    this.doctor = this.doctorService.getDoctor();
+    this.doctor2 = this.doctor2Service.getDoctor();
+    this.engineer = this.engineerService.getEngineer();
+    this.police1 = this.police1Service.getPolice1();
+    this.police2 = this.police2Service.getPolice2();
+    this.police3 = this.police3Service.getPolice3();
+    this.police4 = this.police4Service.getPolice4();
+    this.police5 = this.police5Service.getPolice5();
+    this.teacher1 = this.teacher1Service.getTeacher1();
+    this.teacher2 = this.teacher2Service.getTeacher2();
   }
+
+  nextScene() {
+    if (this.currentScene < this.scenes.length - 1) {
+      this.currentScene++;
+    }
+  }
+
+  previousScene() {
+    if (this.currentScene > 0) {
+      this.currentScene--;
+    }
+  }
+
+  getSceneAction(): string {
+    const action = this.scenes[this.currentScene].action;
+    if (action) {
+      switch (action) {
+        case 'welcomeMessage':
+          return this.mayor.welcomeMessage();
+        case 'getAlias':
+          return this.mayor.getAlias();
+        default:
+          return '';
+      }
+    }
+    return '';
+  }
+  
 }

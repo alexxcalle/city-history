@@ -1,0 +1,32 @@
+<nz-card [nzTitle]="cardTitle" [nzExtra]="cardExtra">
+    <p>{{ scenes[currentScene].description }}</p>
+    
+    <nz-divider></nz-divider>
+    
+    <nz-descriptions [nzTitle]="'Información del Alcalde'">
+      <nz-descriptions-item nzTitle="Nombre">{{ mayor.name }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Edad">{{ mayor.age }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Alias">{{ mayor.getAlias() }}</nz-descriptions-item>
+    </nz-descriptions>
+    
+    <nz-alert *ngIf="getSceneAction()" [nzMessage]="getSceneAction()" nzType="info"></nz-alert>
+  </nz-card>
+  
+  <div style="margin-top: 16px; text-align: center;">
+    <nz-button-group>
+      <button nz-button [nzType]="'default'" (click)="previousScene()" [disabled]="currentScene === 0">
+        <i nz-icon nzType="left"></i>Anterior
+      </button>
+      <button nz-button [nzType]="'default'" (click)="nextScene()" [disabled]="currentScene === scenes.length - 1">
+        Siguiente<i nz-icon nzType="right"></i>
+      </button>
+    </nz-button-group>
+  </div>
+  
+  <ng-template #cardTitle>
+    <h2>{{ scenes[currentScene].title }}</h2>
+  </ng-template>
+  
+  <ng-template #cardExtra>
+    Escena {{ currentScene + 1 }} de {{ scenes.length }}
+  </ng-template>
