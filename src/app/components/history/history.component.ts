@@ -30,6 +30,13 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzAlertModule} from 'ng-zorro-antd/alert';
 
+interface Scene {
+  title: string;
+  description: string;
+  character?: any;
+  action?: () => string;
+}
+
 @Component({
   selector: 'app-history',
   standalone: true,
@@ -63,24 +70,8 @@ export class HistoryComponent implements OnInit {
   teacher1!: Teacher;
   teacher2!: Teacher;
 
-  currentScene: number = 0;
-  scenes: { title: string, description: string, action: string | null }[] = [
-    {
-      title: 'El Despertar de Guayaquil',
-      description: 'Amanece en Guayaquil y el alcalde Abdala Bucaram se prepara para un nuevo día de gobierno.',
-      action: 'welcomeMessage'
-    },
-    {
-      title: 'La Revolución Culinaria',
-      description: 'El alcalde anuncia su nueva política: renombrar las calles con nombres de platos típicos.',
-      action: 'getAlias'
-    },
-    {
-      title: 'El Gran Festín',
-      description: 'Bucaram organiza un festival gastronómico en el Malecón 2000 Sabores.',
-      action: null
-    }
-  ];
+  currentSceneIndex: number = 0;
+  scenes: Scene[] = [];
 
   constructor(
     private mayorService: MayorService,
@@ -115,33 +106,69 @@ export class HistoryComponent implements OnInit {
     this.police5 = this.police5Service.getPolice5();
     this.teacher1 = this.teacher1Service.getTeacher1();
     this.teacher2 = this.teacher2Service.getTeacher2();
+    this.scenes = [
+      {
+        title: 'El Despertar de Guayaquil Loco',
+        description: 'Amanece en Guayaquil y el alcalde Abdala Bucaram se prepara para un nuevo día de gobierno.',
+        character: this.mayor,
+        action: () => this.mayor.welcomeMessage()
+      },
+      {
+        title: 'La Revolución Culinaria',
+        description: 'El chef más famoso de la ciudad se entera de los planes del alcalde para renombrar las calles con platos típicos.',
+        character: this.chef1,
+        action: () => this.chef1.prepareSignatureDish()
+      },
+      {
+        title: 'El Mural Gastronómico',
+        description: 'Un artista local es contratado para pintar un mural que represente la nueva identidad culinaria de la ciudad.',
+        character: this.artist,
+        action: () => this.artist.createMasterpiece()
+      },
+      {
+        title: 'Emergencia en el Festival',
+        description: 'Durante el festival gastronómico, un ciudadano sufre una indigestión y requiere atención médica urgente.',
+        character: this.doctor,
+        action: () => this.doctor.diagnose()
+      },
+      {
+        title: 'Orden en el Caos',
+        description: 'La policía debe mantener el orden mientras las calles se llenan de gente celebrando la nueva identidad de la ciudad.',
+        character: this.police1,
+        action: () => this.police1.patrol()
+      },
+      {
+        title: 'Educación Gastronómica',
+        description: 'Una maestra decide incorporar la nueva temática de la ciudad en sus lecciones de historia local.',
+        character: this.teacher1,
+        action: () => this.teacher1.teach()
+      },
+      {
+        title: 'El Gran Festín',
+        description: 'Bucaram organiza un festival gastronómico en el Malecón 2000 Sabores, reuniendo a todos los personajes.',
+        character: this.mayor,
+        action: () => this.mayor.getAlias()
+      }
+    ];
+  }
+
+  get currentScene(): Scene {
+    return this.scenes[this.currentSceneIndex];
   }
 
   nextScene() {
-    if (this.currentScene < this.scenes.length - 1) {
-      this.currentScene++;
+    if (this.currentSceneIndex < this.scenes.length - 1) {
+      this.currentSceneIndex++;
     }
   }
 
   previousScene() {
-    if (this.currentScene > 0) {
-      this.currentScene--;
+    if (this.currentSceneIndex > 0) {
+      this.currentSceneIndex--;
     }
   }
 
   getSceneAction(): string {
-    const action = this.scenes[this.currentScene].action;
-    if (action) {
-      switch (action) {
-        case 'welcomeMessage':
-          return this.mayor.welcomeMessage();
-        case 'getAlias':
-          return this.mayor.getAlias();
-        default:
-          return '';
-      }
-    }
-    return '';
+    return this.currentScene.action ? this.currentScene.action() : '';
   }
-  
 }

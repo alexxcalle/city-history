@@ -23,4 +23,8 @@ export class Artist extends Citizen {
     getMessage(): string {
         return `Hola a todos, mi nombre es  ${this.name} y quiero compartir mi arte con ustedes.`
     }
+
+    createMasterpiece(): string {
+        return 'Masterpiece';
+    }
 }

@@ -22,4 +22,10 @@ export class Chef1Service {
   getChef(): Chef{
     return this.chef;
   }
+
+  prepareSignatureDish(): string {
+    return 'Beef Wellington';
+  }
+
+  
 }

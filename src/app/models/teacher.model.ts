@@ -15,4 +15,8 @@ export class Teacher extends Citizen {
         super(name, age, gender, address, phone);
         this.subject = subject;
     }
+
+    teach(): string {
+        return 'Teaching';
+    }
 }

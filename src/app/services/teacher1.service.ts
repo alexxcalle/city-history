@@ -23,4 +23,8 @@ export class Teacher1Service {
   getTeacher1(): Teacher{
     return this.teacher1;
   }
+
+  teach(): string {
+    return 'Historia Culinaria de Guayaquil';
+  }
 }

@@ -15,4 +15,8 @@ export class Doctor extends Citizen {
         super(name, age, gender, address, phone);
         this.specialty = specialty;
     }
+
+    diagnose(): string {
+        return 'Diagnóstico';
+    }
 }

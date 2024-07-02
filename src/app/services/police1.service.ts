@@ -24,4 +24,7 @@ export class Police1Service {
     return this.police1;
   }
 
+  patrol(): string {
+    return 'Patrolling';
+  }
 }

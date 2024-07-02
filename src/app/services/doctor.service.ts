@@ -24,4 +24,7 @@ export class DoctorService {
     return this.doctor;
   }
   
+  diagnose(): string {
+    return 'indigestion';
+  }
 }

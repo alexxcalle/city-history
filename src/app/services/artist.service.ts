@@ -22,4 +22,8 @@ export class ArtistService {
   getArtist(): Artist{
     return this.artist;
   }
+
+  createMasterpiece(): string {
+    return 'Guayasamin';
+  }
 }

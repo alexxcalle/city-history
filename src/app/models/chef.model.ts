@@ -15,4 +15,8 @@ export class Chef extends Citizen {
         super(name, age, gender, address, phone);
         this.cuisineType = cuisineType;
     }
+
+    prepareSignatureDish(): string {
+        return 'Signature Dish';
+    }
 }

@@ -15,4 +15,8 @@ export class Police extends Citizen {
         super(name, age, gender, address, phone);
         this.badgeNumber = badgeNumber;
     }
+
+    patrol(): string {
+        return 'Patrolling';
+    }
 }
