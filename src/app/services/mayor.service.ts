@@ -17,7 +17,7 @@ export class MayorService {
       'Bastion Popular, Guayakill',
       123456789,
       5,
-      'El loco que ama '
+      'El loco que ama'
     )
   }
 
@@ -27,5 +27,9 @@ export class MayorService {
 
   welcomeMessage(): string {
     return this.mayor.welcomeMessage();
+  }
+
+  getAlias(): string {
+    return this.mayor.getAlias();
   }
 }
