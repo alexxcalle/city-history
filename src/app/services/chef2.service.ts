@@ -22,4 +22,8 @@ export class Chef2Service {
   getChef(): Chef{
     return this.chef;
   }
+
+  prepareSignatureDish(): string {
+    return 'Beef Steak';
+  }
 }

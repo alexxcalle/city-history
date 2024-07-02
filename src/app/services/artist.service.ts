@@ -26,4 +26,8 @@ export class ArtistService {
   createMasterpiece(): string {
     return 'Guayasamin';
   }
+
+  getArtForm(): string {
+    return this.artist.artForm;
+  }
 }
