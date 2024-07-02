@@ -1,4 +1,5 @@
 import { Citizen } from './citizen.model';
+import { Gender } from './citizen.model';
 
 export class Police extends Citizen {
     public badgeNumber: string;
@@ -6,7 +7,7 @@ export class Police extends Citizen {
     constructor(
         name: string,
         age: number,
-        gender: string,
+        gender: Gender,
         address: string,
         phone: number,
         badgeNumber: string
