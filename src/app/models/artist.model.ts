@@ -15,4 +15,12 @@ export class Artist extends Citizen {
         super(name, age, gender, address, phone);
         this.artForm = artForm;
     }
+
+    getArtForm(): string {
+        return this.artForm;
+    }
+
+    getMessage(): string {
+        return `Hola a todos, mi nombre es  ${this.name} y quiero compartir mi arte con ustedes.`
+    }
 }
